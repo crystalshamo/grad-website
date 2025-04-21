@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Message Selena</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>💌 Leave a Message for Selena</h2>
+    <form id="form">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send to Selena</button>
+      <p id="status" class="hidden">Thank you! 🎈</p>
+    </form>
+  </div>
+
+  <canvas id="confetti-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;"></canvas>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    const form = document.getElementById("form");
+    const status = document.getElementById("status");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const res = await fetch("https://formspree.io/f/mayzpqbb", {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+
+      if (res.ok) {
+        form.reset();
+        status.classList.remove("hidden");
+
+        const duration = 2 * 1000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
+
+        const interval = setInterval(function() {
+          const timeLeft = animationEnd - Date.now();
+          if (timeLeft <= 0) return clearInterval(interval);
+          const particleCount = 50 * (timeLeft / duration);
+          confetti(Object.assign({}, defaults, { particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 } }));
+        }, 200);
+      } else {
+        status.textContent = "Something went wrong. Try again!";
+        status.classList.remove("hidden");
+      }
+    });
+  </script>
+</body>
+</html>
