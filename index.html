@@ -1,58 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Congrats Selena & Crystal!</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Congrats Selena & Crystal</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    .hidden {
-      display: none;
+    body {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
-
-    #form-status {
-      margin-top: 15px;
-      color: #4a7c59;
-      font-weight: bold;
+    
+    .hero-title {
+      font-size: 4.5rem;
+      margin: 0 0 3rem;
+      background: linear-gradient(135deg, #ff9de2 0%, #a084dc 50%, #6457a6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.1;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>🎓 Congrats Selena & Crystal 🎉</h1>
-    <p>Leave us a sweet message for graduation 💖</p>
-
-    <form id="message-form">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-      <p id="form-status" class="hidden">Thank you! Your message was sent 💌</p>
-    </form>
-  </div>
-
-  <script>
-    const form = document.getElementById("message-form");
-    const status = document.getElementById("form-status");
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-
-      const response = await fetch("https://formspree.io/f/mzzelryd", {
-        method: "POST",
-        body: formData,
-        headers: { Accept: "application/json" },
-      });
-
-      if (response.ok) {
-        form.reset();
-        status.textContent = "Thank you! Your message was sent 💌";
-        status.classList.remove("hidden");
-      } else {
-        status.textContent = "Oops! Something went wrong.";
-        status.classList.remove("hidden");
-      }
-    });
-  </script>
-</body>
-</html>
+    
+    .button-grid {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    
+    .circle-btn {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.2rem;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(5px);
+      
