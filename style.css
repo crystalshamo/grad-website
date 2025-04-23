@@ -11,20 +11,7 @@ body {
   box-sizing: border-box;
 }
 
-#balloon-container {
-  height: 100vh;
-  padding: 1em;
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: hidden;
-  transition: opacity 500ms;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-}
-
+/* Title marquee */
 .title-container {
   position: relative;
   z-index: 1;
@@ -40,10 +27,11 @@ body {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   padding: 0.5rem 1rem;
   background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Button layout */
 .button-grid {
   display: flex;
   flex-wrap: wrap;
@@ -55,6 +43,7 @@ body {
   max-width: 600px;
 }
 
+/* Button styles */
 .square-btn {
   display: flex;
   justify-content: center;
@@ -71,8 +60,8 @@ body {
   border: 2px solid white; 
   padding: 10px;
   box-sizing: border-box;
+  color: white;
 }
-
 
 .square-btn:hover {
   transform: translateY(-5px);
@@ -80,13 +69,27 @@ body {
 }
 
 .selena {
-  background-color: #0C5449;
+  background-color: #0C5449; /* dark green */
   color: white;
 }
 
 .crystal {
-  background-color: #BC945B;
+  background-color: #BC945B; /* gold */
   color: white;
+}
+/* Balloons */
+#balloon-container {
+  height: 100vh;
+  padding: 1em;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  transition: opacity 500ms;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
 }
 
 .balloon {
@@ -133,31 +136,48 @@ body {
   }
 }
 
-/* Responsive Deisng */ 
+/* Falling caps */
+.graduation-cap {
+  position: fixed;
+  top: -50px;
+  width: 40px;
+  pointer-events: none;
+  animation: drop 6s linear infinite;
+  z-index: 2;
+}
+
+@keyframes drop {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Responsive Design */
 @media (max-width: 480px) {
   .button-grid {
     gap: 1rem;
     flex-direction: column; 
     align-items: center;
   }
-  
+
   .square-btn {
     width: 85vw; 
     max-width: 280px; 
     height: 70px; 
     font-size: 1rem;
   }
-  
+
   .balloon {
     height: 60px;
     width: 50px;
   }
-  
+
   .balloon:before {
     height: 40px;
     top: 60px;
   }
-  
+
   .balloon:after {
     top: 55px;
   }
