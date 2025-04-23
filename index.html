@@ -11,7 +11,7 @@
   <div id="balloon-container"></div>
 
   <div class="title-container">
-    <marquee behavior="scroll" direction="left" scrollamount="15">
+    <marquee behavior="scroll" direction="left" scrollamount="10">
       🎓 Congratulations Selena & Crystal – Class of 2025!
     </marquee>
   </div>
@@ -75,5 +75,13 @@
       }
     });
   </script>
+  <script>
+    window.addEventListener("pageshow", function(event) {
+      if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+        balloonContainer.innerHTML = '';
+        createBalloons(30);
+      }
+    });
+  </script>  
 </body>
 </html>
