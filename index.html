@@ -22,4 +22,65 @@
   </div>
 
   <script>
-    const balloonContainer = document.g
+    const balloonContainer = document.getElementById("balloon-container");
+
+    function random(num) {
+      return Math.floor(Math.random() * num);
+    }
+
+    function getBalloonStyles() {
+      const colors = [
+        {r: 12, g: 84, b: 73},  // Wayne State Green
+        {r: 188, g: 148, b: 91} // Oakland Gold
+      ];
+      const color = colors[random(2)];
+
+      const mt = random(200);
+      const ml = random(50);
+      const dur = random(5) + 5;
+      return `
+        background-color: rgba(${color.r},${color.g},${color.b},0.7);
+        box-shadow: inset -7px -3px 10px rgba(${color.r - 10},${color.g - 10},${color.b - 10},0.7);
+        margin: ${mt}px 0 0 ${ml}px;
+        animation: float ${dur}s ease-in infinite;
+      `;
+    }
+
+    function createBalloons(num) {
+      for (let i = 0; i < num; i++) {
+        const balloon = document.createElement("div");
+        balloon.className = "balloon";
+        balloon.style.cssText = getBalloonStyles();
+        balloonContainer.append(balloon);
+      }
+    }
+
+    function removeBalloons() {
+      balloonContainer.style.opacity = 0;
+      setTimeout(() => {
+        balloonContainer.remove();
+      }, 500);
+    }
+
+    window.addEventListener("load", () => {
+      createBalloons(30);
+    });
+
+    window.addEventListener("click", removeBalloons);
+
+    window.addEventListener("resize", function () {
+      if (balloonContainer.children.length > 0) {
+        balloonContainer.innerHTML = '';
+        createBalloons(30);
+      }
+    });
+
+    window.addEventListener("pageshow", function(event) {
+      if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+        balloonContainer.innerHTML = '';
+        createBalloons(30);
+      }
+    });
+  </script>
+</body>
+</html>
