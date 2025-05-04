@@ -151,11 +151,11 @@
     }
 
     .logo {
-  height: 110px;
-  object-fit: contain;
-  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
-  transition: transform 0.3s ease;
-}
+      height: 110px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+      transition: transform 0.3s ease;
+    }
 
     .logo:hover {
       transform: scale(1.05) rotate(-2deg);
@@ -422,7 +422,7 @@
       </div>
       <div class="form-group">
         <label for="message">Your Message</label>
-        <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+        <textarea id="message" name="message" rows="5" placeholder="Write your congratulations message here..." required></textarea>
       </div>
       <button type="submit">
         <i class="fas fa-paper-plane"></i> Send Message
@@ -438,79 +438,79 @@
 
   <canvas id="confetti-canvas"
     style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;"></canvas>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script>
-    const form = document.getElementById("form");
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const submitButton = form.querySelector("button[type='submit']");
-      const originalButtonText = submitButton.innerHTML;
-
-      submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-      submitButton.disabled = true;
-
-      try {
-        const data = new FormData(form);
-        const res = await fetch("https://formspree.io/f/mzzelryd", {
-          method: "POST",
-          body: data,
-          headers: { Accept: "application/json" },
-        });
-
-        if (res.ok) {
-          // Confetti celebration for 3 seconds
-          const duration = 3000;
-          const end = Date.now() + duration;
-          const defaults = {
-            startVelocity: 30,
-            spread: 360,
-            ticks: 100,
-            zIndex: 9999,
-            colors: ['#FFFFFF', '#BC945B', '#000000'],
-            shapes: ['circle', 'square']
-          };
-
-          (function frame() {
-            confetti({
-              ...defaults,
-              particleCount: 50,
-              origin: { x: Math.random(), y: Math.random() - 0.2 }
-            });
-
-            if (Date.now() < end) {
-              requestAnimationFrame(frame);
-            }
-          }());
-
-          // Reset form
-          form.reset();
-          submitButton.innerHTML = '<i class="fas fa-check"></i> Sent!';
-          setTimeout(() => {
-            submitButton.innerHTML = originalButtonText;
-            submitButton.disabled = false;
-          }, 2000);
-        } else {
-          throw new Error('Submission failed');
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+      const form = document.getElementById("form");
+    
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const submitButton = form.querySelector("button[type='submit']");
+        const originalButtonText = submitButton.innerHTML;
+    
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitButton.disabled = true;
+    
+        try {
+          const data = new FormData(form);
+          const res = await fetch("https://formspree.io/f/mzzelryd", {
+            method: "POST",
+            body: data,
+            headers: { Accept: "application/json" },
+          });
+    
+          if (res.ok) {
+            // Confetti celebration for 3 seconds
+            const duration = 3000;
+            const end = Date.now() + duration;
+            const defaults = {
+              startVelocity: 30,
+              spread: 360,
+              ticks: 100,
+              zIndex: 9999,
+              colors: ['#FFFFFF', '#BC945B', '#000000'],
+              shapes: ['circle', 'square']
+            };
+    
+            (function frame() {
+              confetti({
+                ...defaults,
+                particleCount: 50,
+                origin: { x: Math.random(), y: Math.random() - 0.2 }
+              });
+    
+              if (Date.now() < end) {
+                requestAnimationFrame(frame);
+              }
+            })();
+    
+            // Reset form and redirect after confetti
+            setTimeout(() => {
+              form.reset();
+              submitButton.innerHTML = '<i class="fas fa-check"></i> Sent!';
+              setTimeout(() => {
+                window.location.href = "index.html?refresh=" + new Date().getTime();
+              }, 1000);
+            }, duration);
+          } else {
+            throw new Error('Submission failed');
+          }
+        } catch (error) {
+          alert("Oops! Something went wrong. Please try again.");
+          submitButton.innerHTML = originalButtonText;
+          submitButton.disabled = false;
         }
-      } catch (error) {
-        alert("Oops! Something went wrong. Please try again.");
-        submitButton.innerHTML = originalButtonText;
-        submitButton.disabled = false;
-      }
-    });
-
-
-    const techIcons = document.querySelectorAll('.tech-icon');
-    techIcons.forEach(icon => {
-      const randomX = (Math.random() * 20) - 10;
-      const randomY = (Math.random() * 20) - 10;
-      const randomDelay = Math.random() * 5;
-
-      icon.style.transform = `translate(${randomX}px, ${randomY}px)`;
-      icon.style.animation = `float 8s ease-in-out ${randomDelay}s infinite alternate`;
-    });
-  </script>
+      });
+    
+      const techIcons = document.querySelectorAll('.tech-icon');
+      techIcons.forEach(icon => {
+        const randomX = (Math.random() * 20) - 10;
+        const randomY = (Math.random() * 20) - 10;
+        const randomDelay = Math.random() * 5;
+    
+        icon.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        icon.style.animation = `float 8s ease-in-out ${randomDelay}s infinite alternate`;
+      });
+    </script>    
 </body>
 
 </html>
